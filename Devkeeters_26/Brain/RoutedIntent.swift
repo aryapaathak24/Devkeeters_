@@ -9,7 +9,7 @@
 import FoundationModels
 
 @Generable
-enum ServiceDomain: String, CaseIterable {
+enum ServiceDomain: String, CaseIterable, Codable {
     case zomato
     case blinkit
     case district
