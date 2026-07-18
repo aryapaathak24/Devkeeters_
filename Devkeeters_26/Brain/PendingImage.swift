@@ -9,6 +9,7 @@
 //
 
 import CoreGraphics
+import Foundation
 
 final class PendingImage: @unchecked Sendable {
     private let lock = NSLock()
