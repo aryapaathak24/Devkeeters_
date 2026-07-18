@@ -11,7 +11,7 @@
 import CoreGraphics
 import Foundation
 
-final class PendingImage: @unchecked Sendable {
+nonisolated final class PendingImage: @unchecked Sendable {
     private let lock = NSLock()
     private var image: CGImage?
 

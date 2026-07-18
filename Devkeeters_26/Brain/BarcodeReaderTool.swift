@@ -18,9 +18,9 @@ struct BarcodeReaderTool: Tool {
     @Generable
     struct Arguments {}
 
-    func call(arguments: Arguments) async throws -> ToolOutput {
+    func call(arguments: Arguments) async throws -> String {
         guard let image = pendingImage.get() else {
-            return ToolOutput("No image is currently available to read.")
+            return "No image is currently available to read."
         }
 
         let request = VNDetectBarcodesRequest()
@@ -31,8 +31,8 @@ struct BarcodeReaderTool: Tool {
             .compactMap { $0.payloadStringValue }
 
         guard !payloads.isEmpty else {
-            return ToolOutput("No barcode was found in the image.")
+            return "No barcode was found in the image."
         }
-        return ToolOutput(payloads.joined(separator: "\n"))
+        return payloads.joined(separator: "\n")
     }
 }

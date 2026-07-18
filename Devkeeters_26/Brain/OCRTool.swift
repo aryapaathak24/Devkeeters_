@@ -18,9 +18,9 @@ struct OCRTool: Tool {
     @Generable
     struct Arguments {}
 
-    func call(arguments: Arguments) async throws -> ToolOutput {
+    func call(arguments: Arguments) async throws -> String {
         guard let image = pendingImage.get() else {
-            return ToolOutput("No image is currently available to read.")
+            return "No image is currently available to read."
         }
 
         let request = VNRecognizeTextRequest()
@@ -34,8 +34,8 @@ struct OCRTool: Tool {
             .compactMap { $0.topCandidates(1).first?.string }
 
         guard !lines.isEmpty else {
-            return ToolOutput("No text was found in the image.")
+            return "No text was found in the image."
         }
-        return ToolOutput(lines.joined(separator: "\n"))
+        return lines.joined(separator: "\n")
     }
 }
