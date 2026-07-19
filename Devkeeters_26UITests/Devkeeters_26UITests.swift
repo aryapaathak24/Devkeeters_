@@ -34,6 +34,53 @@ final class Devkeeters_26UITests: XCTestCase {
     }
 
     @MainActor
+    func testMyUsualOrderFlow() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let skipButton = app.buttons["Skip"]
+        if skipButton.waitForExistence(timeout: 5) {
+            skipButton.tap()
+        }
+
+        let attach1 = XCTAttachment(screenshot: app.screenshot())
+        attach1.name = "01_home"
+        attach1.lifetime = .keepAlways
+        add(attach1)
+
+        let field = app.textFields["e.g. butter chicken and naan"]
+        XCTAssertTrue(field.waitForExistence(timeout: 5), "order text field should exist")
+        field.tap()
+        field.typeText("butter chicken and naan")
+
+        let orderButton = app.buttons["Order with Cortex"]
+        XCTAssertTrue(orderButton.exists)
+        orderButton.tap()
+
+        let orderAgainButton = app.buttons["Order Again"]
+        XCTAssertTrue(orderAgainButton.waitForExistence(timeout: 10), "My Usual card with Order Again should appear after placing order")
+
+        let attach2 = XCTAttachment(screenshot: app.screenshot())
+        attach2.name = "02_after_first_order"
+        attach2.lifetime = .keepAlways
+        add(attach2)
+
+        orderAgainButton.tap()
+
+        let attach3 = XCTAttachment(screenshot: app.screenshot())
+        attach3.name = "03_after_order_again_tap"
+        attach3.lifetime = .keepAlways
+        add(attach3)
+
+        sleep(3)
+
+        let attach4 = XCTAttachment(screenshot: app.screenshot())
+        attach4.name = "04_tracking_state"
+        attach4.lifetime = .keepAlways
+        add(attach4)
+    }
+
+    @MainActor
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.
         measure(metrics: [XCTApplicationLaunchMetric()]) {

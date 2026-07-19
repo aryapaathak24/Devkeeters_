@@ -1,0 +1,102 @@
+{
+  "feature": "PantryLens",
+  "tier": "B (receipt scan) / C (fridge photo)",
+  "goal": "User always knows what's in stock without typing it in.",
+  "screens": [
+    {
+      "id": "pantry_home",
+      "name": "Pantry Home",
+      "purpose": "Shows current known inventory, low-stock flags, and the entry point to scan.",
+      "entryPoints": ["tab_bar", "push_notification_low_stock"],
+      "states": {
+        "loading": "Skeleton list rows while pantryItems query resolves.",
+        "empty": "First-run state: 'Nothing scanned yet' + prominent Scan CTA, no shame-y copy.",
+        "success": "Grouped list (Low stock / Well stocked), each row shows item, estimated qty, last-seen date.",
+        "error": "Inline banner, 'Couldn't load your pantry' + retry, list not wiped from local cache."
+      },
+      "primaryActions": ["scan_pantry", "scan_receipt", "add_item_manually", "edit_item"],
+      "exitTransitions": [
+        { "action": "tap_scan_pantry", "goesTo": "scan_capture" },
+        { "action": "tap_scan_receipt", "goesTo": "receipt_import" },
+        { "action": "tap_item_row", "goesTo": "item_detail" }
+      ]
+    },
+    {
+      "id": "scan_capture",
+      "name": "Camera Capture",
+      "purpose": "Live camera view for a fridge/shelf photo.",
+      "entryPoints": ["pantry_home"],
+      "states": {
+        "loading": "n/a (live camera feed)",
+        "empty": "Permission-denied state: explanation + deep link to Settings, no dead end.",
+        "success": "Framing guide overlay + capture button; low-light warning banner if detected.",
+        "error": "Camera unavailable (rare) — fallback to manual entry offered immediately."
+      },
+      "primaryActions": ["capture_photo", "cancel"],
+      "exitTransitions": [
+        { "action": "photo_captured", "goesTo": "scan_review" },
+        { "action": "cancel", "goesTo": "pantry_home" }
+      ]
+    },
+    {
+      "id": "scan_review",
+      "name": "Scan Review",
+      "purpose": "Shows detected items for user to confirm, correct, or discard before saving.",
+      "entryPoints": ["scan_capture", "receipt_import"],
+      "states": {
+        "loading": "'Reading your photo...' processing spinner, target under 3s for receipts.",
+        "empty": "'Couldn't detect anything clearly' — offers manual entry, does not silently fail.",
+        "success": "Editable list: item name, quantity stepper, confidence indicator per row, swipe to remove a false positive.",
+        "error": "Partial-detection state: shows what it did catch, flags the rest as 'add manually'."
+      },
+      "primaryActions": ["confirm_all", "edit_row", "remove_row", "add_missed_item"],
+      "exitTransitions": [
+        { "action": "confirm", "goesTo": "pantry_home" }
+      ]
+    },
+    {
+      "id": "receipt_import",
+      "name": "Receipt Import",
+      "purpose": "OCR entry point — photograph or pick a receipt image, feeds both PantryLens and order history (Smart Reading).",
+      "entryPoints": ["pantry_home"],
+      "states": {
+        "loading": "OCR parsing in progress.",
+        "empty": "No receipt selected yet — camera or photo-library picker.",
+        "success": "Parsed line items handed to scan_review for confirmation.",
+        "error": "Unreadable receipt (crumpled/faded) — 'We couldn't read this one' + retake or manual entry."
+      },
+      "primaryActions": ["take_photo", "choose_from_library"],
+      "exitTransitions": [
+        { "action": "parsed", "goesTo": "scan_review" }
+      ]
+    },
+    {
+      "id": "item_detail",
+      "name": "Item Detail",
+      "purpose": "Single pantry item — edit quantity, mark as out, see predicted run-out date.",
+      "entryPoints": ["pantry_home"],
+      "states": {
+        "success": "Quantity editor, predictedRunOutDate shown as 'Likely out around ...', delete action."
+      },
+      "primaryActions": ["edit_quantity", "mark_out", "delete_item"],
+      "exitTransitions": [
+        { "action": "save", "goesTo": "pantry_home" }
+      ]
+    }
+  ],
+  "userFlow": [
+    "User opens Pantry Home, sees empty state on first run.",
+    "Taps 'Scan Receipt' after a grocery run.",
+    "Photographs receipt -> OCR parses line items (loading state).",
+    "Lands on Scan Review with editable, confidence-scored list.",
+    "Confirms -> items merge into Pantry Home, low-stock badges recalculated.",
+    "Days later, a push notification flags milk as low -> deep links to Pantry Home."
+  ],
+  "edgeCases": [
+    "Poor lighting on fridge photo -> warn before capture, don't silently return garbage.",
+    "Unbranded/loose produce -> falls back to generic category label, not a guess at brand.",
+    "Camera permission denied -> manual entry must remain a fully first-class path, not a punishment state.",
+    "Multi-language packaging -> low-confidence rows flagged for manual confirm rather than auto-accepted."
+  ],
+  "notes": "Ship receipt_import + scan_review first (well-defined OCR problem). scan_capture for fridge photos is a Phase-5 item — same review screen is reused for both, so the UI investment isn't wasted."
+}

@@ -1,0 +1,68 @@
+{
+  "feature": "Menu & Pricing Advisor",
+  "tier": "A (consumer) / C (vendor — deferred)",
+  "goal": "Help a customer see when a combo is genuinely a better deal than ordering items separately.",
+  "screens": [
+    {
+      "id": "vendor_menu",
+      "name": "Vendor Menu",
+      "purpose": "Standard browse view for a vendor's items.",
+      "entryPoints": ["night_catalog", "search", "vendor_list"],
+      "states": {
+        "loading": "Skeleton menu.",
+        "success": "Standard item list/grid, combo_suggestion_banner injected inline when relevant."
+      },
+      "primaryActions": ["add_to_cart"],
+      "exitTransitions": [
+        { "action": "cart_updated", "goesTo": "cart_value_summary" }
+      ]
+    },
+    {
+      "id": "combo_suggestion_banner",
+      "name": "Combo Value Flag",
+      "purpose": "Inline nudge shown when the current cart contents match a cheaper combo on the same vendor's menu.",
+      "entryPoints": ["vendor_menu"],
+      "states": {
+        "success": "'Add [item] to switch to the Combo and save ₹X' — only shown when the saving is real and calculable from the vendor's own listed prices."
+      },
+      "primaryActions": ["apply_combo", "dismiss"],
+      "exitTransitions": [
+        { "action": "apply", "goesTo": "cart_value_summary" }
+      ]
+    },
+    {
+      "id": "cart_value_summary",
+      "name": "Cart Value Summary",
+      "purpose": "Shows the user how much they saved (or could save) before checkout.",
+      "entryPoints": ["vendor_menu", "combo_suggestion_banner"],
+      "states": {
+        "success": "Line-item total + 'You saved ₹X with combos' if applicable."
+      },
+      "primaryActions": ["checkout"],
+      "exitTransitions": []
+    },
+    {
+      "id": "vendor_pricing_dashboard",
+      "name": "Vendor Pricing Dashboard (deferred)",
+      "purpose": "B2B view where a vendor sees how their pricing compares to nearby competitors.",
+      "entryPoints": ["vendor_admin_panel"],
+      "states": {
+        "success": "Out of scope for v1 — requires a competitor pricing data source that doesn't exist yet."
+      },
+      "primaryActions": [],
+      "exitTransitions": [],
+      "status": "not_built_v1"
+    }
+  ],
+  "userFlow": [
+    "User is browsing a vendor's menu and adds two items that happen to match a combo.",
+    "combo_suggestion_banner appears inline: switching saves a specific, calculable amount.",
+    "User applies it -> cart updates -> cart_value_summary reflects the saving before checkout."
+  ],
+  "edgeCases": [
+    "Saving is trivial (e.g. ₹2) -> suppress the banner below a minimum-saving threshold so it doesn't feel spammy.",
+    "Multiple overlapping combos possible -> surface only the single best one, not a confusing list.",
+    "Vendor hasn't defined any combos -> banner simply never appears, no broken state."
+  ],
+  "notes": "The consumer combo-value flag needs no data beyond the vendor's own menu already in Firestore — cheap to build, ship for v1. The vendor pricing dashboard needs competitor pricing data (same data problem as Deal & Price Radar) and is explicitly deferred, included here only so the schema has a placeholder for later."
+}

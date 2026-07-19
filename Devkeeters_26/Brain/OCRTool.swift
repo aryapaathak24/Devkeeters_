@@ -4,7 +4,10 @@
 //
 //  Vision-backed. The model decides when to call this; the app never runs
 //  OCR manually (see 01_BRAIN.md).
+//  Simulator: stub (camera not used in Simulator).
 //
+
+#if !targetEnvironment(simulator)
 
 import FoundationModels
 import Vision
@@ -39,3 +42,5 @@ struct OCRTool: Tool {
         return lines.joined(separator: "\n")
     }
 }
+
+#endif

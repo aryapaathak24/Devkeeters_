@@ -1,0 +1,66 @@
+{
+  "feature": "Predicting Baskets + Smart Reading",
+  "tier": "B",
+  "goal": "The app pre-builds your usual order based on your own purchase history — you just confirm it.",
+  "screens": [
+    {
+      "id": "predicted_basket_home",
+      "name": "Predicted Basket",
+      "purpose": "Surfaces the auto-generated weekly basket (usually via Sunday notification).",
+      "entryPoints": ["push_notification", "tab_bar"],
+      "states": {
+        "loading": "n/a — basket is precomputed by a scheduled Cloud Function, not generated on open.",
+        "empty": "Cold-start state (new user, <3 historical orders of any SKU): shows a category-based starter template instead, labeled 'Starter basket — we'll learn your pattern after a few orders.'",
+        "success": "List of predicted items with per-item confidence chip (High/Medium), running total.",
+        "error": "Prediction job failed silently upstream -> falls back to starter template, never shows a blank/broken basket."
+      },
+      "primaryActions": ["confirm_basket", "edit_basket", "skip_this_week"],
+      "exitTransitions": [
+        { "action": "tap_confirm", "goesTo": "checkout" },
+        { "action": "tap_item", "goesTo": "confidence_detail" }
+      ]
+    },
+    {
+      "id": "confidence_detail",
+      "name": "Why This Item?",
+      "purpose": "Explains why an item was predicted — builds trust in the algorithm.",
+      "entryPoints": ["predicted_basket_home"],
+      "states": {
+        "success": "'You've bought this every ~12 days, last on [date]' — plain language, no jargon about the algorithm."
+      },
+      "primaryActions": ["remove_from_basket", "keep"],
+      "exitTransitions": [
+        { "action": "back", "goesTo": "predicted_basket_home" }
+      ]
+    },
+    {
+      "id": "order_history_import",
+      "name": "Import Past Orders (Smart Reading)",
+      "purpose": "Backfills purchase history for users bringing habits from another app, via receipt OCR.",
+      "entryPoints": ["settings_menu", "onboarding_prompt"],
+      "states": {
+        "empty": "'Speed up your predictions — scan a few old receipts' — explicitly optional, skippable.",
+        "loading": "Batch OCR processing indicator.",
+        "success": "Parsed historical orders added to orders/{uid}, immediately improves next prediction cycle."
+      },
+      "primaryActions": ["scan_receipt", "skip"],
+      "exitTransitions": [
+        { "action": "done", "goesTo": "predicted_basket_home" }
+      ]
+    }
+  ],
+  "userFlow": [
+    "Sunday morning: scheduled Cloud Function computes each SKU's purchase interval from order history.",
+    "Push notification: 'Your basket's ready.'",
+    "User opens predicted_basket_home, sees milk/bread/eggs pre-filled with confidence chips.",
+    "Taps an item to see why it was included (confidence_detail).",
+    "Confirms -> proceeds to checkout with one tap instead of re-shopping from scratch."
+  ],
+  "edgeCases": [
+    "New user with zero order history -> category starter template, not an empty screen.",
+    "SKU with wildly inconsistent purchase interval (high variance) -> excluded from prediction rather than guessed at.",
+    "User edits the same item every week -> treat as a signal to lower confidence / adjust interval, don't keep repeating the same wrong guess.",
+    "User skips several weeks in a row -> don't keep pushing notifications at the same cadence; back off."
+  ],
+  "notes": "This is an interval-averaging heuristic, not a trained ML model — build the simple version first (avg days-between-purchase, gated by low variance). A real model is a later optimization, not a v1 requirement."
+}

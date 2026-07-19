@@ -11,7 +11,8 @@ import SwiftUI
 struct Devkeeters_26App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootTabView()
+                .preferredColorScheme(.light)
         }
     }
 }

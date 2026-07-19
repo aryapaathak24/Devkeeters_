@@ -4,7 +4,10 @@
 //
 //  Vision-backed. The model decides when to call this; the app never reads
 //  barcodes manually (see 01_BRAIN.md).
+//  Simulator: stub (camera not used in Simulator).
 //
+
+#if !targetEnvironment(simulator)
 
 import FoundationModels
 import Vision
@@ -36,3 +39,5 @@ struct BarcodeReaderTool: Tool {
         return payloads.joined(separator: "\n")
     }
 }
+
+#endif

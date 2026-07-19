@@ -3,8 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 110;
+	objectVersion = 77;
 	objects = {
+
+/* Begin PBXBuildFile section */
+		0FD5768A6097C2E0BE14C024 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5194CF8925AA0D04301CDB8 /* ActivityKit.framework */; };
+		398D109FCB3B0FCAD69139A7 /* OrderActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C00CAEA225EEFD5606566 /* OrderActivityAttributes.swift */; };
+		6A80B0A57AF6FFEEC0C7178D /* OrderLiveActivityWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE838F8914AF9B2FA3E859 /* OrderLiveActivityWidgetBundle.swift */; };
+		80386CFB6C109202A01006BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE7436985D28B8B999C1EBA /* Foundation.framework */; };
+		87552DEAE076D0D88A0F02E2 /* RoutedIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1050F988EF34C63C6DAE5B3 /* RoutedIntent.swift */; };
+		92E72FB59D725558A708797C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F8D5D1795D0CBA423907B5 /* SwiftUI.framework */; };
+		970AF1CA993F91164290E8C5 /* OrderLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DD69E50ABD26367B7BD20 /* OrderLiveActivityWidget.swift */; };
+		B37619E7177F377857C46079 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6853DCE80BD3CFDEF66386 /* WidgetKit.framework */; };
+		ECAC02F6A6D13E58770DA18F /* OrderLiveActivityWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 321E90515BE7B74032E680D8 /* OrderLiveActivityWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		0F894BAB300BF0C800E4CCFD /* PBXContainerItemProxy */ = {
@@ -21,12 +33,43 @@
 			remoteGlobalIDString = 0F894B9C300BF0C700E4CCFD;
 			remoteInfo = Devkeeters_26;
 		};
+		14A1390A77F6509BE0E0E7A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0F894B95300BF0C700E4CCFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16D5D35FD42F60CEE253CCCC;
+			remoteInfo = OrderLiveActivityWidget;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7B3830887464E45D8EC1CE88 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				ECAC02F6A6D13E58770DA18F /* OrderLiveActivityWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0B9943E232CAFE7B4504BDBD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F894B9D300BF0C700E4CCFD /* Devkeeters_26.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Devkeeters_26.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F894BAA300BF0C800E4CCFD /* Devkeeters_26Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Devkeeters_26Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F894BB4300BF0C800E4CCFD /* Devkeeters_26UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Devkeeters_26UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C6853DCE80BD3CFDEF66386 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		321E90515BE7B74032E680D8 /* OrderLiveActivityWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OrderLiveActivityWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FAE838F8914AF9B2FA3E859 /* OrderLiveActivityWidgetBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OrderLiveActivityWidgetBundle.swift; sourceTree = "<group>"; };
+		54F8D5D1795D0CBA423907B5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		6C7C00CAEA225EEFD5606566 /* OrderActivityAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OrderActivityAttributes.swift; path = Devkeeters_26/LiveActivity/OrderActivityAttributes.swift; sourceTree = "<group>"; };
+		C1050F988EF34C63C6DAE5B3 /* RoutedIntent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RoutedIntent.swift; path = Devkeeters_26/Brain/RoutedIntent.swift; sourceTree = "<group>"; };
+		C87DD69E50ABD26367B7BD20 /* OrderLiveActivityWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OrderLiveActivityWidget.swift; sourceTree = "<group>"; };
+		EFE7436985D28B8B999C1EBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		F5194CF8925AA0D04301CDB8 /* ActivityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActivityKit.framework; path = System/Library/Frameworks/ActivityKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -48,20 +91,37 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		06088C43E21EB828D790EBB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80386CFB6C109202A01006BC /* Foundation.framework in Frameworks */,
+				B37619E7177F377857C46079 /* WidgetKit.framework in Frameworks */,
+				92E72FB59D725558A708797C /* SwiftUI.framework in Frameworks */,
+				0FD5768A6097C2E0BE14C024 /* ActivityKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0F894B9A300BF0C700E4CCFD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0F894BA7300BF0C800E4CCFD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0F894BB1300BF0C800E4CCFD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -73,6 +133,10 @@
 				0F894BAD300BF0C800E4CCFD /* Devkeeters_26Tests */,
 				0F894BB7300BF0C800E4CCFD /* Devkeeters_26UITests */,
 				0F894B9E300BF0C700E4CCFD /* Products */,
+				9DFEB4DD1C65DA29B8E70C60 /* Frameworks */,
+				9A3DAF4D1CDFF5D7C0000C35 /* OrderLiveActivityWidget */,
+				6027816EBD6A0E7948499219 /* Shared with App */,
+				533E57713898BB9FEE84831F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,8 +146,55 @@
 				0F894B9D300BF0C700E4CCFD /* Devkeeters_26.app */,
 				0F894BAA300BF0C800E4CCFD /* Devkeeters_26Tests.xctest */,
 				0F894BB4300BF0C800E4CCFD /* Devkeeters_26UITests.xctest */,
+				321E90515BE7B74032E680D8 /* OrderLiveActivityWidget.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		533E57713898BB9FEE84831F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C6853DCE80BD3CFDEF66386 /* WidgetKit.framework */,
+				54F8D5D1795D0CBA423907B5 /* SwiftUI.framework */,
+				F5194CF8925AA0D04301CDB8 /* ActivityKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6027816EBD6A0E7948499219 /* Shared with App */ = {
+			isa = PBXGroup;
+			children = (
+				C1050F988EF34C63C6DAE5B3 /* RoutedIntent.swift */,
+				6C7C00CAEA225EEFD5606566 /* OrderActivityAttributes.swift */,
+			);
+			name = "Shared with App";
+			sourceTree = "<group>";
+		};
+		8586C71F80CB2D3B21D6B71A /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EFE7436985D28B8B999C1EBA /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		9A3DAF4D1CDFF5D7C0000C35 /* OrderLiveActivityWidget */ = {
+			isa = PBXGroup;
+			children = (
+				3FAE838F8914AF9B2FA3E859 /* OrderLiveActivityWidgetBundle.swift */,
+				C87DD69E50ABD26367B7BD20 /* OrderLiveActivityWidget.swift */,
+				0B9943E232CAFE7B4504BDBD /* Info.plist */,
+			);
+			name = OrderLiveActivityWidget;
+			path = Devkeeters_26Widget;
+			sourceTree = "<group>";
+		};
+		9DFEB4DD1C65DA29B8E70C60 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8586C71F80CB2D3B21D6B71A /* iOS */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,13 +207,19 @@
 				0F894B99300BF0C700E4CCFD /* Sources */,
 				0F894B9A300BF0C700E4CCFD /* Frameworks */,
 				0F894B9B300BF0C700E4CCFD /* Resources */,
+				7B3830887464E45D8EC1CE88 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
+			);
+			dependencies = (
+				8E317A0A6C7901C2FFF4B0AD /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				0F894B9F300BF0C700E4CCFD /* Devkeeters_26 */,
 			);
 			name = Devkeeters_26;
+			packageProductDependencies = (
+			);
 			productName = Devkeeters_26;
 			productReference = 0F894B9D300BF0C700E4CCFD /* Devkeeters_26.app */;
 			productType = "com.apple.product-type.application";
@@ -124,6 +241,8 @@
 				0F894BAD300BF0C800E4CCFD /* Devkeeters_26Tests */,
 			);
 			name = Devkeeters_26Tests;
+			packageProductDependencies = (
+			);
 			productName = Devkeeters_26Tests;
 			productReference = 0F894BAA300BF0C800E4CCFD /* Devkeeters_26Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -145,9 +264,30 @@
 				0F894BB7300BF0C800E4CCFD /* Devkeeters_26UITests */,
 			);
 			name = Devkeeters_26UITests;
+			packageProductDependencies = (
+			);
 			productName = Devkeeters_26UITests;
 			productReference = 0F894BB4300BF0C800E4CCFD /* Devkeeters_26UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		16D5D35FD42F60CEE253CCCC /* OrderLiveActivityWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2DC0508AF4741969E56966F /* Build configuration list for PBXNativeTarget "OrderLiveActivityWidget" */;
+			buildPhases = (
+				3AF0C8B360C8D3A2432DAA97 /* Sources */,
+				06088C43E21EB828D790EBB8 /* Frameworks */,
+				8F8E70A0F3BFDC923BEA1439 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OrderLiveActivityWidget;
+			packageProductDependencies = (
+			);
+			productName = OrderLiveActivityWidget;
+			productReference = 321E90515BE7B74032E680D8 /* OrderLiveActivityWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -189,6 +329,7 @@
 				0F894B9C300BF0C700E4CCFD /* Devkeeters_26 */,
 				0F894BA9300BF0C800E4CCFD /* Devkeeters_26Tests */,
 				0F894BB3300BF0C800E4CCFD /* Devkeeters_26UITests */,
+				16D5D35FD42F60CEE253CCCC /* OrderLiveActivityWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -196,36 +337,66 @@
 /* Begin PBXResourcesBuildPhase section */
 		0F894B9B300BF0C700E4CCFD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0F894BA8300BF0C800E4CCFD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0F894BB2300BF0C800E4CCFD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F8E70A0F3BFDC923BEA1439 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0F894B99300BF0C700E4CCFD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0F894BA6300BF0C800E4CCFD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0F894BB0300BF0C800E4CCFD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AF0C8B360C8D3A2432DAA97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A80B0A57AF6FFEEC0C7178D /* OrderLiveActivityWidgetBundle.swift in Sources */,
+				970AF1CA993F91164290E8C5 /* OrderLiveActivityWidget.swift in Sources */,
+				87552DEAE076D0D88A0F02E2 /* RoutedIntent.swift in Sources */,
+				398D109FCB3B0FCAD69139A7 /* OrderActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -240,10 +411,16 @@
 			target = 0F894B9C300BF0C700E4CCFD /* Devkeeters_26 */;
 			targetProxy = 0F894BB5300BF0C800E4CCFD /* PBXContainerItemProxy */;
 		};
+		8E317A0A6C7901C2FFF4B0AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OrderLiveActivityWidget;
+			target = 16D5D35FD42F60CEE253CCCC /* OrderLiveActivityWidget */;
+			targetProxy = 14A1390A77F6509BE0E0E7A9 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0F894BBA300BF0C800E4CCFD /* Debug configuration for PBXProject "Devkeeters_26" */ = {
+		0F894BBA300BF0C800E4CCFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -305,7 +482,7 @@
 			};
 			name = Debug;
 		};
-		0F894BBB300BF0C800E4CCFD /* Release configuration for PBXProject "Devkeeters_26" */ = {
+		0F894BBB300BF0C800E4CCFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -359,7 +536,7 @@
 			};
 			name = Release;
 		};
-		0F894BBD300BF0C800E4CCFD /* Debug configuration for PBXNativeTarget "Devkeeters_26" */ = {
+		0F894BBD300BF0C800E4CCFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -372,6 +549,9 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Cortex;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Cortex uses your camera to scan receipts for PantryLens and Smart Reading.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -382,7 +562,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
@@ -403,7 +583,7 @@
 			};
 			name = Debug;
 		};
-		0F894BBE300BF0C800E4CCFD /* Release configuration for PBXNativeTarget "Devkeeters_26" */ = {
+		0F894BBE300BF0C800E4CCFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -416,6 +596,9 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Cortex;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Cortex uses your camera to scan receipts for PantryLens and Smart Reading.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -426,7 +609,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
@@ -447,7 +630,7 @@
 			};
 			name = Release;
 		};
-		0F894BC0300BF0C800E4CCFD /* Debug configuration for PBXNativeTarget "Devkeeters_26Tests" */ = {
+		0F894BC0300BF0C800E4CCFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -455,7 +638,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 27CZ8S8BXY;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.test.Devkeeters-26Tests";
@@ -473,7 +656,7 @@
 			};
 			name = Debug;
 		};
-		0F894BC1300BF0C800E4CCFD /* Release configuration for PBXNativeTarget "Devkeeters_26Tests" */ = {
+		0F894BC1300BF0C800E4CCFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -481,7 +664,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 27CZ8S8BXY;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.test.Devkeeters-26Tests";
@@ -499,14 +682,14 @@
 			};
 			name = Release;
 		};
-		0F894BC3300BF0C800E4CCFD /* Debug configuration for PBXNativeTarget "Devkeeters_26UITests" */ = {
+		0F894BC3300BF0C800E4CCFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 27CZ8S8BXY;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.test.Devkeeters-26UITests";
@@ -524,14 +707,14 @@
 			};
 			name = Debug;
 		};
-		0F894BC4300BF0C800E4CCFD /* Release configuration for PBXNativeTarget "Devkeeters_26UITests" */ = {
+		0F894BC4300BF0C800E4CCFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 27CZ8S8BXY;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.test.Devkeeters-26UITests";
@@ -548,6 +731,67 @@
 				XROS_DEPLOYMENT_TARGET = 27.0;
 			};
 			name = Release;
+		};
+		5E6509EBCAE6C7D8C8ACBE46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 27CZ8S8BXY;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Devkeeters_26Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.Devkeeters-26.OrderLiveActivityWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "WIDGET $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6F2E296816A017E47D236F47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 27CZ8S8BXY;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Devkeeters_26Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.Devkeeters-26.OrderLiveActivityWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "WIDGET $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -555,37 +799,49 @@
 		0F894B98300BF0C700E4CCFD /* Build configuration list for PBXProject "Devkeeters_26" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0F894BBA300BF0C800E4CCFD /* Debug configuration for PBXProject "Devkeeters_26" */,
-				0F894BBB300BF0C800E4CCFD /* Release configuration for PBXProject "Devkeeters_26" */,
+				0F894BBA300BF0C800E4CCFD /* Debug */,
+				0F894BBB300BF0C800E4CCFD /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		0F894BBC300BF0C800E4CCFD /* Build configuration list for PBXNativeTarget "Devkeeters_26" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0F894BBD300BF0C800E4CCFD /* Debug configuration for PBXNativeTarget "Devkeeters_26" */,
-				0F894BBE300BF0C800E4CCFD /* Release configuration for PBXNativeTarget "Devkeeters_26" */,
+				0F894BBD300BF0C800E4CCFD /* Debug */,
+				0F894BBE300BF0C800E4CCFD /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		0F894BBF300BF0C800E4CCFD /* Build configuration list for PBXNativeTarget "Devkeeters_26Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0F894BC0300BF0C800E4CCFD /* Debug configuration for PBXNativeTarget "Devkeeters_26Tests" */,
-				0F894BC1300BF0C800E4CCFD /* Release configuration for PBXNativeTarget "Devkeeters_26Tests" */,
+				0F894BC0300BF0C800E4CCFD /* Debug */,
+				0F894BC1300BF0C800E4CCFD /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		0F894BC2300BF0C800E4CCFD /* Build configuration list for PBXNativeTarget "Devkeeters_26UITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0F894BC3300BF0C800E4CCFD /* Debug configuration for PBXNativeTarget "Devkeeters_26UITests" */,
-				0F894BC4300BF0C800E4CCFD /* Release configuration for PBXNativeTarget "Devkeeters_26UITests" */,
+				0F894BC3300BF0C800E4CCFD /* Debug */,
+				0F894BC4300BF0C800E4CCFD /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2DC0508AF4741969E56966F /* Build configuration list for PBXNativeTarget "OrderLiveActivityWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E6509EBCAE6C7D8C8ACBE46 /* Release */,
+				6F2E296816A017E47D236F47 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
 	rootObject = 0F894B95300BF0C700E4CCFD /* Project object */;
-	validationLevel = 1;
 }

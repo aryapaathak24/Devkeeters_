@@ -1,0 +1,61 @@
+{
+  "feature": "Night Emergency Mode",
+  "tier": "A",
+  "goal": "At 2am, only show what's realistically open and deliverable right now.",
+  "screens": [
+    {
+      "id": "mode_toggle",
+      "name": "Night Mode Toggle",
+      "purpose": "Entry point to switch the whole app into the filtered emergency view.",
+      "entryPoints": ["home_screen_banner", "auto_prompt_after_10pm"],
+      "states": {
+        "success": "Simple switch/banner; auto-suggested (not forced) after a certain local hour."
+      },
+      "primaryActions": ["enable_night_mode", "dismiss_suggestion"],
+      "exitTransitions": [
+        { "action": "enable", "goesTo": "night_catalog" }
+      ]
+    },
+    {
+      "id": "night_catalog",
+      "name": "Night Catalog",
+      "purpose": "Filtered vendor list — only open-now, sorted by distance, defaulted to emergency categories.",
+      "entryPoints": ["mode_toggle"],
+      "states": {
+        "loading": "Skeleton list while geoquery resolves.",
+        "empty": "No open vendors within default radius -> explicit 'Nothing open nearby' + auto-expanded radius, not a dead end.",
+        "success": "List sorted by distance, each row shows ETA + open-until time, category chips (Pharmacy/Baby/Essentials) pinned at top.",
+        "error": "Location permission denied -> manual location entry fallback."
+      },
+      "primaryActions": ["expand_radius", "select_category", "open_vendor"],
+      "exitTransitions": [
+        { "action": "tap_vendor", "goesTo": "vendor_detail_night" }
+      ]
+    },
+    {
+      "id": "vendor_detail_night",
+      "name": "Vendor Detail (Night)",
+      "purpose": "Stripped-down vendor page — just what's needed for a fast emergency order.",
+      "entryPoints": ["night_catalog"],
+      "states": {
+        "success": "Product list limited to emergency-relevant categories, ETA prominent, checkout streamlined."
+      },
+      "primaryActions": ["add_to_cart", "checkout"],
+      "exitTransitions": [
+        { "action": "checkout", "goesTo": "order_confirmed" }
+      ]
+    }
+  ],
+  "userFlow": [
+    "It's past midnight; app suggests Night Mode via a banner.",
+    "User enables it -> night_catalog immediately filters to open pharmacies/stores nearby.",
+    "Selects a vendor, sees only emergency-relevant categories.",
+    "Fast checkout, minimal friction."
+  ],
+  "edgeCases": [
+    "Nothing open within default radius -> auto-expand and say so explicitly, don't just show an empty screen.",
+    "A vendor marked is24Hour but is actually closed for a holiday -> out of scope for v1 (no holiday-hours data), acceptable known limitation.",
+    "Location denied -> manual address entry, never a hard stop."
+  ],
+  "notes": "Lowest technical risk in the whole feature set — a query filter and a UI state, no external dependency. Good first build for an early demoable win."
+}

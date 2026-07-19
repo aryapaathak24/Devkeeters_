@@ -1,0 +1,78 @@
+{
+  "feature": "Crew Mode",
+  "tier": "A",
+  "goal": "One shared cart for a household — additions merge instead of colliding.",
+  "screens": [
+    {
+      "id": "household_setup",
+      "name": "Household Setup",
+      "purpose": "Create a new household or join an existing one via code/link.",
+      "entryPoints": ["onboarding", "settings_menu"],
+      "states": {
+        "empty": "No household yet — two clear CTAs: 'Create household' / 'Join with code'.",
+        "success": "Household created or joined -> routes to shared_cart."
+      },
+      "primaryActions": ["create_household", "join_household"],
+      "exitTransitions": [
+        { "action": "created_or_joined", "goesTo": "shared_cart" }
+      ]
+    },
+    {
+      "id": "invite_share",
+      "name": "Invite / Share",
+      "purpose": "Generate and share the join code or link.",
+      "entryPoints": ["shared_cart"],
+      "states": {
+        "success": "QR code + copyable link + native share sheet."
+      },
+      "primaryActions": ["copy_link", "share_native", "regenerate_code"],
+      "exitTransitions": [
+        { "action": "done", "goesTo": "shared_cart" }
+      ]
+    },
+    {
+      "id": "shared_cart",
+      "name": "Shared Cart",
+      "purpose": "Main real-time view — everyone's added items in one list.",
+      "entryPoints": ["household_setup", "tab_bar"],
+      "states": {
+        "loading": "Skeleton rows while listener attaches.",
+        "empty": "'Cart's empty — add something' with quick-add suggestions.",
+        "success": "Each row tagged with addedBy avatar + timestamp; new items animate in as they arrive from other members.",
+        "error": "Listener disconnected -> subtle 'Reconnecting...' banner, cart stays usable offline-first, syncs on reconnect."
+      },
+      "primaryActions": ["add_item", "claim_item", "remove_item", "invite_member"],
+      "exitTransitions": [
+        { "action": "tap_item", "goesTo": "item_detail" },
+        { "action": "tap_invite", "goesTo": "invite_share" }
+      ]
+    },
+    {
+      "id": "item_detail",
+      "name": "Cart Item Detail",
+      "purpose": "Claim an item (so no one else duplicates it) or remove it.",
+      "entryPoints": ["shared_cart"],
+      "states": {
+        "success": "Claimed state shows 'Claimed by [name]' badge, others see it greyed to discourage duplicate buys."
+      },
+      "primaryActions": ["claim", "unclaim", "remove"],
+      "exitTransitions": [
+        { "action": "save", "goesTo": "shared_cart" }
+      ]
+    }
+  ],
+  "userFlow": [
+    "User creates a household during onboarding, gets a join code.",
+    "Shares code with roommates via invite_share.",
+    "Roommate joins -> both land on the same shared_cart in real time.",
+    "User adds detergent; roommate adds eggs from their own phone -> both appear instantly, tagged with who added them.",
+    "Roommate claims 'detergent' before a store run so no one else buys it twice."
+  ],
+  "edgeCases": [
+    "Someone removes an item another person added -> soft toast notification, not a silent delete.",
+    "A member leaves the household -> their previously-added items stay in the cart, ownership label just shows their name (not orphaned/blank).",
+    "Two people claim the same item within the same second -> first write wins, second gets a toast explaining it's already claimed.",
+    "Invite link expired/reused -> clear error, not a silent failure to join."
+  ],
+  "notes": "Reuses the same membership + role pattern already built for AATCe Connect's 5-role system. The shared_cart schema here is intentionally identical in shape to Group Ordering's participant cart (see 05_group_ordering.json) so the two features can share implementation."
+}

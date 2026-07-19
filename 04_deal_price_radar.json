@@ -1,0 +1,80 @@
+{
+  "feature": "Deal & Price Radar",
+  "tier": "C",
+  "goal": "Track prices on things you care about, across categories, and get pinged on drops.",
+  "screens": [
+    {
+      "id": "watchlist_home",
+      "name": "Watchlist",
+      "purpose": "All tracked items with current price and trend.",
+      "entryPoints": ["tab_bar"],
+      "states": {
+        "loading": "Skeleton rows.",
+        "empty": "'Nothing on your radar yet' + Add CTA.",
+        "success": "Row per item: thumbnail, current price, small sparkline trend, target price.",
+        "error": "Item whose scrape has been failing repeatedly shows 'Price unavailable' rather than a stale/wrong number."
+      },
+      "primaryActions": ["add_watch_item", "remove_item"],
+      "exitTransitions": [
+        { "action": "tap_add", "goesTo": "add_watch_item" },
+        { "action": "tap_item", "goesTo": "price_history_detail" }
+      ]
+    },
+    {
+      "id": "add_watch_item",
+      "name": "Add to Watchlist",
+      "purpose": "User pastes a product URL and sets a target price.",
+      "entryPoints": ["watchlist_home", "share_sheet_extension"],
+      "states": {
+        "empty": "URL input field, paste-from-clipboard suggestion.",
+        "loading": "Validating URL / fetching initial price + product image.",
+        "success": "Preview card (image, name, current price) + target price stepper before confirming.",
+        "error": "Unsupported site -> clear 'We can't track this site yet' rather than a silent failure."
+      },
+      "primaryActions": ["confirm_add", "set_target_price"],
+      "exitTransitions": [
+        { "action": "confirm", "goesTo": "watchlist_home" }
+      ]
+    },
+    {
+      "id": "price_history_detail",
+      "name": "Price History",
+      "purpose": "Chart of price over time for one item.",
+      "entryPoints": ["watchlist_home", "price_drop_alert"],
+      "states": {
+        "success": "Line chart of priceHistory[], lowest/highest markers, edit target price inline."
+      },
+      "primaryActions": ["edit_target", "remove_item", "open_retailer_link"],
+      "exitTransitions": [
+        { "action": "back", "goesTo": "watchlist_home" }
+      ]
+    },
+    {
+      "id": "price_drop_alert",
+      "name": "Price Drop Push",
+      "purpose": "Push notification when a tracked item hits target price.",
+      "entryPoints": ["fcm_push"],
+      "states": {
+        "success": "Deep links straight to price_history_detail for that item."
+      },
+      "primaryActions": ["open"],
+      "exitTransitions": [
+        { "action": "tap", "goesTo": "price_history_detail" }
+      ]
+    }
+  ],
+  "userFlow": [
+    "User pastes a product URL (e.g. a charger listing) into add_watch_item.",
+    "Sets a target price.",
+    "Scheduled Cloud Function checks the price periodically in the background.",
+    "Price drops below target -> push notification -> price_drop_alert -> deep link to price_history_detail.",
+    "User taps through to the retailer to buy."
+  ],
+  "edgeCases": [
+    "Retailer redesigns their page and the parser breaks -> item flips to 'Price unavailable' state, doesn't show a stale or fabricated price.",
+    "Unsupported/unknown site -> explicit rejection at add time, not a silent no-op.",
+    "Same item tracked at two different URLs -> no dedup attempted in v1, treated as two separate watch entries.",
+    "Terms-of-Service exposure — scraping a retailer's page may violate their ToS; this is a legal/product-risk item, not just an engineering edge case."
+  ],
+  "notes": "v1 is a single-URL watchlist, not an autonomous cross-vertical aggregator. Each add_watch_item is one specific product the user explicitly chose to track — that scopes both the engineering effort and the ToS risk."
+}

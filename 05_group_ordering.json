@@ -1,0 +1,92 @@
+{
+  "feature": "Group Social Ordering / Booking / Planning",
+  "tier": "B",
+  "goal": "Friends coordinate one order or event in-app, with automatic bill splitting.",
+  "screens": [
+    {
+      "id": "group_order_create",
+      "name": "Start a Group Order",
+      "purpose": "Host picks a vendor and starts a group order/event.",
+      "entryPoints": ["vendor_menu", "tab_bar"],
+      "states": {
+        "empty": "Vendor picker + split-type choice (equal / itemized) before creating."
+      },
+      "primaryActions": ["select_vendor", "choose_split_type", "create_order"],
+      "exitTransitions": [
+        { "action": "created", "goesTo": "group_order_join" }
+      ]
+    },
+    {
+      "id": "group_order_join",
+      "name": "Join Screen / Invite",
+      "purpose": "Share link, shows who's joined so far.",
+      "entryPoints": ["group_order_create", "deep_link"],
+      "states": {
+        "loading": "Joining...",
+        "success": "Avatar row of joined participants, live as people join.",
+        "error": "Order already locked -> 'This order's closed' rather than letting a late joiner add items that won't be counted."
+      },
+      "primaryActions": ["copy_link", "join_now"],
+      "exitTransitions": [
+        { "action": "joined", "goesTo": "participant_cart" }
+      ]
+    },
+    {
+      "id": "participant_cart",
+      "name": "Your Picks",
+      "purpose": "Each participant adds their own items to their personal sub-cart within the group order.",
+      "entryPoints": ["group_order_join"],
+      "states": {
+        "empty": "'Add your items' prompt.",
+        "success": "Personal item list + running personal subtotal; can see other participants' names but not necessarily their items (host can see all)."
+      },
+      "primaryActions": ["add_item", "remove_item", "mark_done"],
+      "exitTransitions": [
+        { "action": "mark_done", "goesTo": "group_order_summary" }
+      ]
+    },
+    {
+      "id": "group_order_summary",
+      "name": "Order Summary (host view)",
+      "purpose": "Host reviews everyone's picks and locks the order.",
+      "entryPoints": ["participant_cart"],
+      "states": {
+        "loading": "Waiting on N participants who haven't marked done -> visible checklist, not a silent wait.",
+        "success": "Full itemized list grouped by participant, computed split preview before locking."
+      },
+      "primaryActions": ["lock_order", "nudge_participant"],
+      "exitTransitions": [
+        { "action": "lock", "goesTo": "payment_split" }
+      ]
+    },
+    {
+      "id": "payment_split",
+      "name": "Payment Split",
+      "purpose": "Per-participant payment links generated after lock.",
+      "entryPoints": ["group_order_summary"],
+      "states": {
+        "success": "Each participant sees their own amount + Pay button; host sees who's paid.",
+        "error": "A payment fails -> that participant gets a retry, doesn't block others from paying."
+      },
+      "primaryActions": ["pay_now"],
+      "exitTransitions": [
+        { "action": "all_paid", "goesTo": "order_confirmed" }
+      ]
+    }
+  ],
+  "userFlow": [
+    "Host starts a group order for movie-night snacks, picks equal split.",
+    "Shares the join link; friends tap in via group_order_join.",
+    "Each friend adds their own snacks in participant_cart.",
+    "Host watches the summary fill in, locks the order once everyone's marked done.",
+    "App computes each person's share and generates individual payment links.",
+    "Everyone pays their own share; order proceeds once all are paid (or host can override and cover the rest)."
+  ],
+  "edgeCases": [
+    "A participant leaves before lock -> their items drop out and the split recalculates automatically.",
+    "Order locked with participants still 'not done' -> host gets an explicit warning before locking, not a silent cutoff.",
+    "Itemized split where someone adds nothing -> excluded from the split rather than charged an equal share for nothing.",
+    "Payment failure -> isolated retry per participant, doesn't block the rest of the group."
+  ],
+  "notes": "Shares its shared-cart primitive with Crew Mode (see 02_crew_mode.json) — same underlying schema shape, just event-scoped (groupOrders) instead of persistent (households). Build the primitive once."
+}

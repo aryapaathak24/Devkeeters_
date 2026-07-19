@@ -5,7 +5,34 @@
 //  The brain's structured output. Every entry point (voice, camera, touch)
 //  produces one of these; the matching domain's AppIntent takes it from there.
 //
+//  On Simulator: plain Swift structs (no FoundationModels dependency).
+//  On Device:    @Generable structs powered by Apple Intelligence.
+//
 
+#if targetEnvironment(simulator) || WIDGET
+
+// ── Simulator ── plain structs, no FoundationModels needed ────────────────
+enum ServiceDomain: String, CaseIterable, Codable {
+    case zomato
+    case blinkit
+    case district
+}
+
+struct RoutedIntent {
+    var domain: ServiceDomain
+    var summary: String
+    var items: [String]
+    var secondaryAction: SecondaryAction?
+}
+
+struct SecondaryAction {
+    var domain: ServiceDomain
+    var items: [String]
+}
+
+#else
+
+// ── Device ── Apple Intelligence structured generation ────────────────────
 import FoundationModels
 
 @Generable
@@ -38,3 +65,5 @@ struct SecondaryAction {
     @Guide(description: "Concrete items for the secondary action")
     var items: [String]
 }
+
+#endif
